@@ -28,4 +28,83 @@ public class ProductController : Controller
 
         return View(products);
     }
+
+    public async Task<IActionResult> CreateProduct()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateProduct(ProductModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var response = await this.productService.CreateProductAsync<ResponseModel>(model);
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(ProductIndex));
+            }
+        }
+
+        return View(model);
+    }
+
+    public async Task<IActionResult> EditProduct(int productId)
+    {
+        var response = await this.productService.GetProductByIdAsync<ResponseModel>(productId);
+        if (response != null && response.IsSuccess)
+        {
+            ProductModel product = JsonConvert.DeserializeObject<ProductModel>(Convert.ToString(response.Result));
+
+            return View(product);
+        }
+
+        return NotFound();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditProduct(ProductModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var response = await this.productService.UpdateProductAsync<ResponseModel>(model);
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(ProductIndex));
+            }
+        }
+
+        return View(model);
+    }
+
+    public async Task<IActionResult> DeleteProduct(int productId)
+    {
+        var response = await this.productService.GetProductByIdAsync<ResponseModel>(productId);
+        if (response != null && response.IsSuccess)
+        {
+            ProductModel product = JsonConvert.DeserializeObject<ProductModel>(Convert.ToString(response.Result));
+
+            return View(product);
+        }
+
+        return NotFound();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteProduct(ProductModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var response = await this.productService.DeleteProductAsync<ResponseModel>(model.ProductId);
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(ProductIndex));
+            }
+        }
+
+        return View(model);
+    }
 }

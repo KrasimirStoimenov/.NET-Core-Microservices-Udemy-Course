@@ -91,6 +91,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete]
+    [Route("{id}")]
     public async Task<ResponseDto> DeleteProduct(int id)
     {
         try

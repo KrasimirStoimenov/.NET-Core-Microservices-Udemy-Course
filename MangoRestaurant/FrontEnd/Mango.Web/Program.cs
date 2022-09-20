@@ -1,6 +1,6 @@
 using Mango.Web;
 using Mango.Web.Services;
-using Mango.Web.Services.Interfaces;
+using Mango.Web.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 

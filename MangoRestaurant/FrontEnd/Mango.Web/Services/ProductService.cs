@@ -3,7 +3,7 @@
 using System.Threading.Tasks;
 
 using Mango.Web.Models;
-using Mango.Web.Services.Interfaces;
+using Mango.Web.Services.IServices;
 
 public class ProductService : BaseService, IProductService
 {
@@ -15,14 +15,14 @@ public class ProductService : BaseService, IProductService
         this.httpClient = httpClient;
     }
 
-    public async Task<T> CreateProductAsync<T>(ProductModel productDto)
+    public async Task<T> CreateProductAsync<T>(ProductModel productDto, string token)
     {
         ApiRequest apiRequest = new ApiRequest
         {
             ApiType = StaticDetails.ApiType.POST,
             Data = productDto,
             Url = StaticDetails.ProductAPIBase + "/api/products",
-            AccessToken = ""
+            AccessToken = token
         };
 
         var response = await this.SendAsync<T>(apiRequest);
@@ -30,13 +30,13 @@ public class ProductService : BaseService, IProductService
         return response;
     }
 
-    public async Task<T> DeleteProductAsync<T>(int id)
+    public async Task<T> DeleteProductAsync<T>(int id, string token)
     {
         ApiRequest apiRequest = new ApiRequest
         {
             ApiType = StaticDetails.ApiType.DELETE,
             Url = StaticDetails.ProductAPIBase + $"/api/products/{id}",
-            AccessToken = ""
+            AccessToken = token
         };
 
         var response = await this.SendAsync<T>(apiRequest);
@@ -44,13 +44,13 @@ public class ProductService : BaseService, IProductService
         return response;
     }
 
-    public async Task<T> GetAllProductsAsync<T>()
+    public async Task<T> GetAllProductsAsync<T>(string token)
     {
         ApiRequest apiRequest = new ApiRequest
         {
             ApiType = StaticDetails.ApiType.GET,
             Url = StaticDetails.ProductAPIBase + "/api/products",
-            AccessToken = ""
+            AccessToken = token
         };
 
         var response = await this.SendAsync<T>(apiRequest);
@@ -58,13 +58,13 @@ public class ProductService : BaseService, IProductService
         return response;
     }
 
-    public async Task<T> GetProductByIdAsync<T>(int id)
+    public async Task<T> GetProductByIdAsync<T>(int id, string token)
     {
         ApiRequest apiRequest = new ApiRequest
         {
             ApiType = StaticDetails.ApiType.GET,
             Url = StaticDetails.ProductAPIBase + $"/api/products/{id}",
-            AccessToken = ""
+            AccessToken = token
         };
 
         var response = await this.SendAsync<T>(apiRequest);
@@ -72,14 +72,14 @@ public class ProductService : BaseService, IProductService
         return response;
     }
 
-    public async Task<T> UpdateProductAsync<T>(ProductModel productDto)
+    public async Task<T> UpdateProductAsync<T>(ProductModel productDto, string token)
     {
         ApiRequest apiRequest = new ApiRequest
         {
             ApiType = StaticDetails.ApiType.PUT,
             Data = productDto,
             Url = StaticDetails.ProductAPIBase + "/api/products",
-            AccessToken = ""
+            AccessToken = token
         };
 
         var response = await this.SendAsync<T>(apiRequest);

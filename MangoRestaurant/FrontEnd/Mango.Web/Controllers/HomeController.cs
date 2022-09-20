@@ -32,7 +32,7 @@ public class HomeController : Controller
     }
 
     [Authorize]
-    public IActionResult Login()
+    public async Task<IActionResult> Login()
     {
         return RedirectToAction(nameof(Index));
     }

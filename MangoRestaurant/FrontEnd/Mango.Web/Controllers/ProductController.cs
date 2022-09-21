@@ -4,7 +4,6 @@ using Mango.Web.Models;
 using Mango.Web.Services.IServices;
 
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Newtonsoft.Json;
@@ -85,7 +84,6 @@ public class ProductController : Controller
         return View(model);
     }
 
-    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteProduct(int productId)
     {
         var accessToken = await this.HttpContext.GetTokenAsync("access_token");
@@ -101,7 +99,6 @@ public class ProductController : Controller
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteProduct(ProductModel model)
     {

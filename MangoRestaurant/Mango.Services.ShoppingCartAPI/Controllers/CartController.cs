@@ -37,6 +37,7 @@ public class CartController
     }
 
     [HttpPost]
+    [Route("add")]
     public async Task<ResponseDto> AddCart(CartDto cartDto)
     {
         try
@@ -54,6 +55,7 @@ public class CartController
     }
 
     [HttpPost]
+    [Route("update")]
     public async Task<ResponseDto> UpdateCart(CartDto cartDto)
     {
         try
@@ -71,6 +73,7 @@ public class CartController
     }
 
     [HttpPost]
+    [Route("remove")]
     public async Task<ResponseDto> RemoveCart([FromBody] int cartId)
     {
         try
@@ -88,6 +91,7 @@ public class CartController
     }
 
     [HttpPost]
+    [Route("clear")]
     public async Task<ResponseDto> ClearCart([FromBody] string userId)
     {
         try

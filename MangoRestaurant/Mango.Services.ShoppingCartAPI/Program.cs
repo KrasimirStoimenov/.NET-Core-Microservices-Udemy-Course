@@ -1,5 +1,6 @@
 using Mango.Services.ShoppingCartAPI.AutoMappingProfile;
 using Mango.Services.ShoppingCartAPI.DbContext;
+using Mango.Services.ShoppingCartAPI.Repository;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -17,7 +18,7 @@ builder.Services.AddAutoMapper(options =>
     options.AddProfile<MappingProfile>();
 });
 
-//builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 builder.Services.AddControllers();
 

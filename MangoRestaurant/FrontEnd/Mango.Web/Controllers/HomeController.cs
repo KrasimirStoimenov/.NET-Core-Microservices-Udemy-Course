@@ -1,9 +1,12 @@
 ﻿namespace Mango.Web.Controllers;
+
 using System.Diagnostics;
 
 using Mango.Web.Models;
+using Mango.Web.Models.CartModels;
 using Mango.Web.Services.IServices;
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +16,13 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> logger;
     private readonly IProductService productService;
+    private readonly ICartService cartService;
 
-    public HomeController(ILogger<HomeController> logger, IProductService productService)
+    public HomeController(ILogger<HomeController> logger, IProductService productService, ICartService cartService)
     {
         this.logger = logger;
         this.productService = productService;
+        this.cartService = cartService;
     }
 
     public async Task<IActionResult> Index()
@@ -43,6 +48,45 @@ public class HomeController : Controller
         }
 
         return View(model);
+    }
+
+    [HttpPost]
+    [ActionName("Details")]
+    [Authorize]
+    public async Task<IActionResult> DetailsPost(ProductModel productModel)
+    {
+        CartModel cartModel = new CartModel()
+        {
+            CartHeader = new CartHeaderModel()
+            {
+                UserId = this.User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value
+            }
+        };
+
+        CartDetailsModel cartDetails = new CartDetailsModel()
+        {
+            Count = productModel.Count,
+            ProductId = productModel.ProductId
+        };
+
+        var response = await this.productService.GetProductByIdAsync<ResponseModel>(productModel.ProductId, "");
+        if (response != null && response.IsSuccess)
+        {
+            cartDetails.Product = JsonConvert.DeserializeObject<ProductModel>(Convert.ToString(response.Result));
+        }
+
+        List<CartDetailsModel> cartDetailsModels = new List<CartDetailsModel>();
+        cartDetailsModels.Add(cartDetails);
+        cartModel.CartDetails = cartDetailsModels;
+
+        var accessToken = await this.HttpContext.GetTokenAsync("access_token");
+        var addToCartResponse = await this.cartService.AddToCartAsync<ResponseModel>(cartModel, accessToken);
+        if (addToCartResponse != null && addToCartResponse.IsSuccess)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        return View(productModel);
     }
 
     public IActionResult Privacy()

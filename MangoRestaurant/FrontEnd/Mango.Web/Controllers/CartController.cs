@@ -89,7 +89,7 @@ public class CartController : Controller
             if (!string.IsNullOrEmpty(cartModel.CartHeader.CouponCode))
             {
                 ResponseModel couponResponse = await this.couponService.GetCoupon<ResponseModel>(cartModel.CartHeader.CouponCode, accessToken);
-                if (couponResponse != null && couponResponse.IsSuccess)
+                if (couponResponse != null && couponResponse.IsSuccess && couponResponse.Result != null)
                 {
                     CouponModel coupon = JsonConvert.DeserializeObject<CouponModel>(Convert.ToString(couponResponse.Result));
                     cartModel.CartHeader.DiscountTotal = coupon.DiscountAmount;

@@ -39,6 +39,36 @@ public class CartController : Controller
         return View();
     }
 
+    [HttpPost]
+    public async Task<IActionResult> ApplyCoupon(CartModel cartModel)
+    {
+        string userId = this.User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value;
+        string accessToken = await this.HttpContext.GetTokenAsync("access_token");
+
+        ResponseModel response = await this.cartService.ApplyCoupon<ResponseModel>(cartModel, accessToken);
+        if (response != null && response.IsSuccess)
+        {
+            return RedirectToAction(nameof(CartIndex));
+        }
+
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RemoveCoupon(CartModel cartModel)
+    {
+        string userId = this.User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value;
+        string accessToken = await this.HttpContext.GetTokenAsync("access_token");
+
+        ResponseModel response = await this.cartService.RemoveCoupon<ResponseModel>(cartModel.CartHeader.UserId, accessToken);
+        if (response != null && response.IsSuccess)
+        {
+            return RedirectToAction(nameof(CartIndex));
+        }
+
+        return View();
+    }
+
     private async Task<CartModel> LoadCartModelBasedOnLoggedInUser()
     {
         string userId = this.User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value;

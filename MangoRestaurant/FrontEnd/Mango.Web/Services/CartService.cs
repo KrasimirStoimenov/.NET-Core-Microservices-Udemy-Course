@@ -90,4 +90,34 @@ public class CartService : BaseService, ICartService
 
         return response;
     }
+
+    public async Task<T> ApplyCoupon<T>(CartModel cartModel, string token = null)
+    {
+        ApiRequest apiRequest = new ApiRequest
+        {
+            ApiType = StaticDetails.ApiType.POST,
+            Data = cartModel,
+            Url = StaticDetails.ShoppingCartAPIBase + "/api/cart/applyCoupon",
+            AccessToken = token
+        };
+
+        var response = await this.SendAsync<T>(apiRequest);
+
+        return response;
+    }
+
+    public async Task<T> RemoveCoupon<T>(string userId, string token = null)
+    {
+        ApiRequest apiRequest = new ApiRequest
+        {
+            ApiType = StaticDetails.ApiType.POST,
+            Data = userId,
+            Url = StaticDetails.ShoppingCartAPIBase + "/api/cart/removeCoupon",
+            AccessToken = token
+        };
+
+        var response = await this.SendAsync<T>(apiRequest);
+
+        return response;
+    }
 }

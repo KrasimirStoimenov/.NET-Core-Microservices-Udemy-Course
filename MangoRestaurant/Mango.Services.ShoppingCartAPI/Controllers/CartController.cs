@@ -107,4 +107,40 @@ public class CartController
 
         return response;
     }
+
+    [HttpPost]
+    [Route("applyCoupon")]
+    public async Task<ResponseDto> ApplyCoupon([FromBody] CartDto cartDto)
+    {
+        try
+        {
+            bool isSuccess = await this.cartRepository.ApplyCoupon(cartDto.CartHeader.UserId, cartDto.CartHeader.CouponCode); ;
+            response.Result = isSuccess;
+        }
+        catch (Exception ex)
+        {
+            this.response.IsSuccess = false;
+            this.response.ErrorMessages = new List<string>() { ex.ToString() };
+        }
+
+        return response;
+    }
+
+    [HttpPost]
+    [Route("removeCoupon")]
+    public async Task<ResponseDto> RemoveCoupon([FromBody] string userId)
+    {
+        try
+        {
+            bool isSuccess = await this.cartRepository.RemoveCoupon(userId);
+            response.Result = isSuccess;
+        }
+        catch (Exception ex)
+        {
+            this.response.IsSuccess = false;
+            this.response.ErrorMessages = new List<string>() { ex.ToString() };
+        }
+
+        return response;
+    }
 }

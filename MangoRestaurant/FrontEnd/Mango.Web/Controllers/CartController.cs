@@ -27,6 +27,11 @@ public class CartController : Controller
         return View(await LoadCartModelBasedOnLoggedInUser());
     }
 
+    public async Task<IActionResult> Checkout()
+    {
+        return View(await LoadCartModelBasedOnLoggedInUser());
+    }
+
     public async Task<IActionResult> Remove(int cartDetailsId)
     {
         string userId = this.User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value;

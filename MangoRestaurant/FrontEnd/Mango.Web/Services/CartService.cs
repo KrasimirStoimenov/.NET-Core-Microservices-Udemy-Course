@@ -120,4 +120,19 @@ public class CartService : BaseService, ICartService
 
         return response;
     }
+
+    public async Task<T> Checkout<T>(CartHeaderModel cartHeader, string token = null)
+    {
+        ApiRequest apiRequest = new ApiRequest
+        {
+            ApiType = StaticDetails.ApiType.POST,
+            Data = cartHeader,
+            Url = StaticDetails.ShoppingCartAPIBase + "/api/cart/checkout",
+            AccessToken = token
+        };
+
+        var response = await this.SendAsync<T>(apiRequest);
+
+        return response;
+    }
 }

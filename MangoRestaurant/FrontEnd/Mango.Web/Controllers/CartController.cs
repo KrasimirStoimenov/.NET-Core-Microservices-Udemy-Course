@@ -27,11 +27,6 @@ public class CartController : Controller
         return View(await LoadCartModelBasedOnLoggedInUser());
     }
 
-    public async Task<IActionResult> Checkout()
-    {
-        return View(await LoadCartModelBasedOnLoggedInUser());
-    }
-
     public async Task<IActionResult> Remove(int cartDetailsId)
     {
         string userId = this.User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value;
@@ -74,6 +69,35 @@ public class CartController : Controller
             return RedirectToAction(nameof(CartIndex));
         }
 
+        return View();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Checkout()
+    {
+        return View(await LoadCartModelBasedOnLoggedInUser());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Checkout(CartModel cartModel)
+    {
+        try
+        {
+            string accessToken = await this.HttpContext.GetTokenAsync("access_token");
+            ResponseModel response = await this.cartService.Checkout<ResponseModel>(cartModel.CartHeader, accessToken);
+
+            return RedirectToAction(nameof(Confirmation));
+
+        }
+        catch (Exception)
+        {
+            return View(cartModel);
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Confirmation()
+    {
         return View();
     }
 

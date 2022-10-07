@@ -1,5 +1,6 @@
 using Mango.Services.OrderAPI.AutoMappingProfile;
 using Mango.Services.OrderAPI.DbContext;
+using Mango.Services.OrderAPI.Repository;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,10 @@ builder.Services.AddAutoMapper(options =>
 });
 
 //builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options));
 
 builder.Services.AddControllers();
 

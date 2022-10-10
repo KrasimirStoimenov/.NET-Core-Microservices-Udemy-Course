@@ -85,7 +85,11 @@ public class CartController : Controller
         {
             string accessToken = await this.HttpContext.GetTokenAsync("access_token");
             ResponseModel response = await this.cartService.Checkout<ResponseModel>(cartModel.CartHeader, accessToken);
-
+            if (!response.IsSuccess)
+            {
+                ViewBag.Error = response.DisplayMessage;
+                return RedirectToAction(nameof(Checkout));
+            }
             return RedirectToAction(nameof(Confirmation));
 
         }

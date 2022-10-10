@@ -19,7 +19,11 @@ builder.Services.AddAutoMapper(options =>
 });
 
 builder.Services.AddScoped<ICartRepository, CartRepository>();
-
+builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddHttpClient<ICouponRepository, CouponRepository>(options =>
+{
+    options.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]);
+});
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication("Bearer")

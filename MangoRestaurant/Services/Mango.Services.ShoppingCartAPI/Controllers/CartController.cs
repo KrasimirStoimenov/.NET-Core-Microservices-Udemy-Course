@@ -12,10 +12,12 @@ public class CartController : ControllerBase
 {
     protected ResponseDto response;
     private readonly ICartRepository cartRepository;
+    private readonly ICouponRepository couponRepository;
 
-    public CartController(ICartRepository cartRepository)
+    public CartController(ICartRepository cartRepository, ICouponRepository couponRepository)
     {
         this.cartRepository = cartRepository;
+        this.couponRepository = couponRepository;
         this.response = new ResponseDto();
     }
 
@@ -155,6 +157,19 @@ public class CartController : ControllerBase
             if (cartDto == null)
             {
                 return BadRequest();
+            }
+
+            if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
+            {
+                CouponDto coupon = await this.couponRepository.GetCoupon(checkoutHeader.CouponCode);
+                if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
+                {
+                    this.response.IsSuccess = false;
+                    this.response.ErrorMessages = new List<string>() { "Coupon Price has changed, please confirm" };
+                    this.response.DisplayMessage = "Coupon Price has changed, please confirm";
+
+                    return this.response;
+                }
             }
 
             checkoutHeader.CartDetails = cartDto.CartDetails;

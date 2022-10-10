@@ -1,7 +1,8 @@
 ﻿@model Mango.Web.Models.CartModels.CartModel
 
-@if(ViewBag.Error !=  null){
-    <div classclass="alert alert-warning" role="alert">@ViewBag.Error</div>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-warning" role="alert">@TempData["Error"]</div>
 }
 
 @if (Model != null && Model.CartDetails.Count() > 0)

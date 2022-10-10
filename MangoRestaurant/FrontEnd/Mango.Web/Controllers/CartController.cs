@@ -87,7 +87,7 @@ public class CartController : Controller
             ResponseModel response = await this.cartService.Checkout<ResponseModel>(cartModel.CartHeader, accessToken);
             if (!response.IsSuccess)
             {
-                ViewBag.Error = response.DisplayMessage;
+                TempData["Error"] = response.DisplayMessage;
                 return RedirectToAction(nameof(Checkout));
             }
             return RedirectToAction(nameof(Confirmation));

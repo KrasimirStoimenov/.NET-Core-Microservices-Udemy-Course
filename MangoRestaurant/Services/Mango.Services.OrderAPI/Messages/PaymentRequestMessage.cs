@@ -1,6 +1,6 @@
 ﻿namespace Mango.Services.OrderAPI.Messages;
 
-public class PaymentRequestMessage : BaseMessage
+public class PaymentRequestMessage
 {
     public int OrderId { get; set; }
     public string Name { get; set; }

@@ -175,6 +175,8 @@ public class CartController : ControllerBase
             checkoutHeader.CartDetails = cartDto.CartDetails;
 
             //logic to add message to process order.
+
+            await this.cartRepository.ClearCart(checkoutHeader.UserId);
         }
         catch (Exception ex)
         {

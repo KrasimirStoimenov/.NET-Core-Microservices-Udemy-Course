@@ -1,5 +1,6 @@
 using Mango.Services.ShoppingCartAPI.AutoMappingProfile;
 using Mango.Services.ShoppingCartAPI.DbContext;
+using Mango.Services.ShoppingCartAPI.RabbitMqSender;
 using Mango.Services.ShoppingCartAPI.Repository;
 
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ builder.Services.AddAutoMapper(options =>
     options.AddProfile<MappingProfile>();
 });
 
+builder.Services.AddSingleton<IRabbitMqCartMessageSender, RabbitMqCartMessageSender>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
 builder.Services.AddHttpClient<ICouponRepository, CouponRepository>(options =>

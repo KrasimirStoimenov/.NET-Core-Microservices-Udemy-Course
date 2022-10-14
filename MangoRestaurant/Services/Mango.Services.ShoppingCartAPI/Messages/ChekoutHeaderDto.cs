@@ -2,7 +2,7 @@
 
 using Mango.Services.ShoppingCartAPI.Models.Dtos;
 
-public class ChekoutHeaderDto
+public class ChekoutHeaderDto : BaseMessage
 {
     public int CartHeaderId { get; set; }
 

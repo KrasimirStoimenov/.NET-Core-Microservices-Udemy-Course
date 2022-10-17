@@ -1,9 +1,14 @@
+using Mango.Services.PaymentAPI.Messaging;
+using Mango.Services.PaymentAPI.Messaging.RabbitMqSender;
+
 using PaymentProcessor;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddHostedService<RabbitMqPaymentConsumer>();
+builder.Services.AddSingleton<IRabbitMqPaymentMessageSender, RabbitMqPaymentMessageSender>();
 builder.Services.AddSingleton<IProcessPayment, ProcessPayment>();
 
 builder.Services.AddControllers();

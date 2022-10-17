@@ -11,7 +11,6 @@ using RabbitMQ.Client;
 public class RabbitMqCartMessageSender : IRabbitMqCartMessageSender
 {
     private readonly string hostname;
-    private readonly int port;
     private readonly string username;
     private readonly string password;
     IConnection connection;
@@ -19,7 +18,6 @@ public class RabbitMqCartMessageSender : IRabbitMqCartMessageSender
     public RabbitMqCartMessageSender(IConfiguration configuration)
     {
         this.hostname = configuration.GetValue<string>("RabbitMq:Hostname");
-        this.port = configuration.GetValue<int>("RabbitMq:Port");
         this.username = configuration.GetValue<string>("RabbitMq:Username");
         this.password = configuration.GetValue<string>("RabbitMq:Password");
     }

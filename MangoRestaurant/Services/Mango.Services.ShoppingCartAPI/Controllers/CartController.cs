@@ -180,7 +180,7 @@ public class CartController : ControllerBase
             //logic to add message to process order.
             this.rabbitMqCartMessageSender.SendMessage(checkoutHeader, "checkout-queue");
 
-            //await this.cartRepository.ClearCart(checkoutHeader.UserId);
+            await this.cartRepository.ClearCart(checkoutHeader.UserId);
         }
         catch (Exception ex)
         {

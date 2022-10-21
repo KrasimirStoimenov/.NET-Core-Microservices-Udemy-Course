@@ -26,6 +26,7 @@ var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options));
 builder.Services.AddHostedService<RabbitMqCheckoutConsumer>();
+builder.Services.AddHostedService<RabbitMqPaymentConsumer>();
 builder.Services.AddSingleton<IRabbitMqOrderMessageSender, RabbitMqOrderMessageSender>();
 
 builder.Services.AddControllers();

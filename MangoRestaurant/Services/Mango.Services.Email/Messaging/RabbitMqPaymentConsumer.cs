@@ -56,7 +56,7 @@ public class RabbitMqPaymentConsumer : BackgroundService
             this.channel.BasicAck(args.DeliveryTag, false);
         };
 
-        channel.BasicConsume(orderPaymentProcessQueueName, false, consumer);
+        channel.BasicConsume(queueName, false, consumer);
 
         return Task.CompletedTask;
     }

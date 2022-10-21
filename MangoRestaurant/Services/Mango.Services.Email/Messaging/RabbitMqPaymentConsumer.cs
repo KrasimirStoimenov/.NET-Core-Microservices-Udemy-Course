@@ -37,8 +37,8 @@ public class RabbitMqPaymentConsumer : BackgroundService
         this.connection = factory.CreateConnection();
         this.channel = connection.CreateModel();
         this.channel.ExchangeDeclare(exchangeName, ExchangeType.Fanout);
-
         this.queueName = this.channel.QueueDeclare().QueueName;
+        this.channel.QueueBind(queueName, exchangeName, "");
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)

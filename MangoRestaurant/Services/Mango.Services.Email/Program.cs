@@ -1,4 +1,5 @@
 using Mango.Services.Email.DbContext;
+using Mango.Services.Email.Messaging;
 using Mango.Services.Email.Repository;
 
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddHostedService<RabbitMqPaymentConsumer>();
 builder.Services.AddSingleton(new EmailRepository(optionBuilder.Options));
 
 builder.Services.AddControllers();

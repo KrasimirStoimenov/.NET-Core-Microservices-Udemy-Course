@@ -21,15 +21,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.OrderAPI", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{5EF427CB-1ED7-4DC2-A989-B65E49E1D83E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{A545244B-6CB5-448D-B38F-62B030B97ADA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentProcessor", "PaymentProcessor\PaymentProcessor.csproj", "{A545244B-6CB5-448D-B38F-62B030B97ADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.PaymentAPI", "Services\Mango.Services.PaymentAPI\Mango.Services.PaymentAPI.csproj", "{C9DD4BBE-BB7B-42C0-B9B4-AD07811399DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.PaymentAPI", "Services\Mango.Services.PaymentAPI\Mango.Services.PaymentAPI.csproj", "{C9DD4BBE-BB7B-42C0-B9B4-AD07811399DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.Email", "Services\Mango.Services.Email\Mango.Services.Email.csproj", "{2AADBBEF-F7A3-4E49-9019-F006B3407FE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.Email", "Services\Mango.Services.Email\Mango.Services.Email.csproj", "{2AADBBEF-F7A3-4E49-9019-F006B3407FE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{5F20BB41-C040-4A78-A936-1DA47578B887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.OcelotAPIGateway", "Gateway\Mango.OcelotAPIGateway\Mango.OcelotAPIGateway.csproj", "{5289E038-72BC-4CCB-89D3-41939561B2FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.OcelotAPIGateway", "Gateway\Mango.OcelotAPIGateway\Mango.OcelotAPIGateway.csproj", "{5289E038-72BC-4CCB-89D3-41939561B2FC}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1A2F70EB-A6DA-4A78-AFED-BE8175594E4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{5289E038-72BC-4CCB-89D3-41939561B2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5289E038-72BC-4CCB-89D3-41939561B2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5289E038-72BC-4CCB-89D3-41939561B2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A2F70EB-A6DA-4A78-AFED-BE8175594E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A2F70EB-A6DA-4A78-AFED-BE8175594E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A2F70EB-A6DA-4A78-AFED-BE8175594E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A2F70EB-A6DA-4A78-AFED-BE8175594E4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

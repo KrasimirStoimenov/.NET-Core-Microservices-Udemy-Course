@@ -21,3 +21,13 @@ services:
       - mssqldb
     ports:
       - "8001:80"
+
+  mango.services.shoppingcartapi:
+    container_name: shoppingcart.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=mssqldb;Database=MangoShoppingCartAPI;User Id=sa;Password=Admin_123"
+    ports:
+      - "8002:80"
+    depends_on:
+      - mssqldb

@@ -27,7 +27,17 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:DefaultConnection=Server=mssqldb;Database=MangoShoppingCartAPI;User Id=sa;Password=Admin_123"
-    ports:
-      - "8002:80"
     depends_on:
       - mssqldb
+    ports:
+      - "8002:80"
+
+  mango.services.couponapi:
+    container_name: coupon.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=mssqldb;Database=MangoCouponAPI;User Id=sa;Password=Admin_123"
+    depends_on:
+      - mssqldb
+    ports:
+      - "8003:80"

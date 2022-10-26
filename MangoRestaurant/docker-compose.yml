@@ -16,5 +16,12 @@ services:
       context: .
       dockerfile: Services/Mango.Services.ShoppingCartAPI/Dockerfile
 
+  mango.services.couponapi:
+    image: ${DOCKER_REGISTRY-}mangoservicescouponapi
+    build:
+      context: .
+      dockerfile: Services/Mango.Services.CouponAPI/Dockerfile
+
 volumes:
   mssql_data:
+

@@ -4,6 +4,9 @@ services:
   mssqldb:
     image: mcr.microsoft.com/mssql/server:2022-latest
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
   mango.services.productapi:
     image: ${DOCKER_REGISTRY-}mangoservicesproductapi
     build:
@@ -22,6 +25,13 @@ services:
       context: .
       dockerfile: Services/Mango.Services.CouponAPI/Dockerfile
 
+  mango.services.orderapi:
+    image: ${DOCKER_REGISTRY-}mangoservicesorderapi
+    build:
+      context: .
+      dockerfile: Services/Mango.Services.OrderAPI/Dockerfile
+
 volumes:
   mssql_data:
+
 

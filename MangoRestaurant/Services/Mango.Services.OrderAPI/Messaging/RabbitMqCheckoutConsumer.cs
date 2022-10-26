@@ -19,6 +19,7 @@ public class RabbitMqCheckoutConsumer : BackgroundService
 {
     private readonly IRabbitMqOrderMessageSender rabbitMqOrderMessageSender;
     private readonly OrderRepository orderRepository;
+    private readonly string hostAddress;
     private readonly string checkoutQueueName;
     private readonly string orderPaymentProcessQueueName;
     private IConnection connection;
@@ -34,7 +35,11 @@ public class RabbitMqCheckoutConsumer : BackgroundService
 
         this.checkoutQueueName = configuration.GetValue<string>("RabbitMq:CheckoutQueueName");
         this.orderPaymentProcessQueueName = configuration.GetValue<string>("RabbitMq:OrderPaymentProcessQueueName");
-        var factory = new ConnectionFactory();
+        this.hostAddress = configuration.GetValue<string>("RabbitMq:HostAddress");
+        var factory = new ConnectionFactory
+        {
+            Uri = new Uri(hostAddress)
+        };
 
         this.connection = factory.CreateConnection();
         this.channel = this.connection.CreateModel();

@@ -12,6 +12,16 @@ services:
     volumes:
       - mssql_data:/var/lib/mssqlql/data
 
+  rabbitmq:
+    container_name: rabbitmq
+    environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+        - "5672:5672" 
+        - "15672:15672"
+
   mango.services.productapi:
     container_name: product.api
     environment:
@@ -41,3 +51,15 @@ services:
       - mssqldb
     ports:
       - "8003:80"
+
+  mango.services.orderapi:
+    container_name: order.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=mssqldb;Database=MangoOrderAPI;User Id=sa;Password=Admin_123"
+      - "RabbitMq:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - mssqldb
+      - rabbitmq
+    ports:
+      - "8004:80"

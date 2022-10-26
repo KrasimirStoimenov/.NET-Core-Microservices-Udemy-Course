@@ -10,17 +10,10 @@ using RabbitMQ.Client;
 
 public class RabbitMqOrderMessageSender : IRabbitMqOrderMessageSender
 {
-    private readonly string hostname;
-    private readonly string username;
-    private readonly string password;
     IConnection connection;
 
-    public RabbitMqOrderMessageSender(IConfiguration configuration)
-    {
-        this.hostname = configuration.GetValue<string>("RabbitMq:Hostname");
-        this.username = configuration.GetValue<string>("RabbitMq:Username");
-        this.password = configuration.GetValue<string>("RabbitMq:Password");
-    }
+    public RabbitMqOrderMessageSender()
+    { }
 
     public void SendMessage(BaseMessage message, string queueName)
     {
@@ -38,12 +31,7 @@ public class RabbitMqOrderMessageSender : IRabbitMqOrderMessageSender
     {
         try
         {
-            var factory = new ConnectionFactory
-            {
-                HostName = this.hostname,
-                UserName = this.username,
-                Password = this.password
-            };
+            var factory = new ConnectionFactory();
             this.connection = factory.CreateConnection();
         }
         catch (Exception)

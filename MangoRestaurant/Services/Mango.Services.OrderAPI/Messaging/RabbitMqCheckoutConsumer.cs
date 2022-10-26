@@ -34,12 +34,7 @@ public class RabbitMqCheckoutConsumer : BackgroundService
 
         this.checkoutQueueName = configuration.GetValue<string>("RabbitMq:CheckoutQueueName");
         this.orderPaymentProcessQueueName = configuration.GetValue<string>("RabbitMq:OrderPaymentProcessQueueName");
-        var factory = new ConnectionFactory
-        {
-            HostName = configuration.GetValue<string>("RabbitMq:Hostname"),
-            UserName = configuration.GetValue<string>("RabbitMq:Username"),
-            Password = configuration.GetValue<string>("RabbitMq:Password"),
-        };
+        var factory = new ConnectionFactory();
 
         this.connection = factory.CreateConnection();
         this.channel = this.connection.CreateModel();

@@ -10,17 +10,11 @@ using RabbitMQ.Client;
 
 public class RabbitMqPaymentMessageSender : IRabbitMqPaymentMessageSender
 {
-    private readonly string hostname;
-    private readonly string username;
-    private readonly string password;
     private readonly string exchangeName;
     IConnection connection;
 
     public RabbitMqPaymentMessageSender(IConfiguration configuration)
     {
-        this.hostname = configuration.GetValue<string>("RabbitMq:Hostname");
-        this.username = configuration.GetValue<string>("RabbitMq:Username");
-        this.password = configuration.GetValue<string>("RabbitMq:Password");
         this.exchangeName = configuration.GetValue<string>("RabbitMq:ExchangeName");
     }
 
@@ -40,12 +34,7 @@ public class RabbitMqPaymentMessageSender : IRabbitMqPaymentMessageSender
     {
         try
         {
-            var factory = new ConnectionFactory
-            {
-                HostName = this.hostname,
-                UserName = this.username,
-                Password = this.password
-            };
+            var factory = new ConnectionFactory();
             this.connection = factory.CreateConnection();
         }
         catch (Exception)

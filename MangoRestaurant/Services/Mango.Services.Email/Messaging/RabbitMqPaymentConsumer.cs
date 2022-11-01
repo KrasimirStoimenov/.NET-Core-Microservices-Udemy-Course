@@ -15,7 +15,6 @@ using RabbitMQ.Client.Events;
 public class RabbitMqPaymentConsumer : BackgroundService
 {
     private readonly EmailRepository emailRepository;
-    private readonly string orderPaymentProcessQueueName;
     private readonly string exchangeName;
     private readonly string hostAddress;
     private IConnection connection;
@@ -25,7 +24,6 @@ public class RabbitMqPaymentConsumer : BackgroundService
     public RabbitMqPaymentConsumer(IConfiguration configuration, EmailRepository emailRepository)
     {
         this.emailRepository = emailRepository;
-        this.orderPaymentProcessQueueName = configuration.GetValue<string>("RabbitMq:OrderPaymentProcessQueueName");
         this.exchangeName = configuration.GetValue<string>("RabbitMq:ExchangeName");
         this.hostAddress = configuration.GetValue<string>("RabbitMq:HostAddress");
 

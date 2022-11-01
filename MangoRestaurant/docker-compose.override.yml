@@ -63,3 +63,13 @@ services:
       - rabbitmq
     ports:
       - "8004:80"
+
+  mango.services.paymentapi:
+    container_name: payment.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "RabbitMq:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8005:80"

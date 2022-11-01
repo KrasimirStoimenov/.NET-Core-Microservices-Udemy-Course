@@ -31,7 +31,14 @@ services:
       context: .
       dockerfile: Services/Mango.Services.OrderAPI/Dockerfile
 
+  mango.services.paymentapi:
+    image: ${DOCKER_REGISTRY-}mangoservicespaymentapi
+    build:
+      context: .
+      dockerfile: Services/Mango.Services.PaymentAPI/Dockerfile
+
 volumes:
   mssql_data:
+
 
 

@@ -19,6 +19,7 @@ public class RabbitMqPaymentConsumer : BackgroundService
     private readonly IRabbitMqPaymentMessageSender rabbitMqPaymentMessageSender;
     private readonly IProcessPayment processPayment;
     private readonly string orderPaymentProcessQueueName;
+    private readonly string hostAddress;
     private IConnection connection;
     private IModel channel;
 
@@ -30,8 +31,12 @@ public class RabbitMqPaymentConsumer : BackgroundService
         this.rabbitMqPaymentMessageSender = rabbitMqOrderMessageSender;
         this.processPayment = processPayment;
         this.orderPaymentProcessQueueName = configuration.GetValue<string>("RabbitMq:OrderPaymentProcessQueueName");
+        this.hostAddress = configuration.GetValue<string>("RabbitMq:HostAddress");
 
-        var factory = new ConnectionFactory();
+        var factory = new ConnectionFactory
+        {
+            Uri = new Uri(hostAddress)
+        };
 
         this.connection = factory.CreateConnection();
         this.channel = this.connection.CreateModel();

@@ -73,3 +73,15 @@ services:
       - rabbitmq
     ports:
       - "8005:80"
+
+  mango.services.email:
+    container_name: email.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=mssqldb;Database=MangoEmailAPI;User Id=sa;Password=Admin_123"
+      - "RabbitMq:HostAddress=amqp://guest:guest@localhost:5672"
+    depends_on:
+      - mssqldb
+      - rabbitmq
+    ports:
+      - "8006:80"
